@@ -1,0 +1,55 @@
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
+#define AKVIS_STR_(x) #x
+#define AKVIS_STR(x) AKVIS_STR_(x)
+
+#define GGML_VERSION_MAJOR 0
+#define GGML_VERSION_MINOR 9
+#define GGML_VERSION_PATCH 9
+#define BUILD_NUM 1
+
+#define VER_MAJOR GGML_VERSION_MAJOR
+#define VER_MINOR GGML_VERSION_MINOR
+#define VER_PATCH GGML_VERSION_PATCH
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+#define VERSION_AS_NUMBERLIST VER_MAJOR,VER_MINOR,VER_PATCH,BUILD_NUM
+#define VERSION_FULL AKVIS_STR(VER_MAJOR) "." AKVIS_STR(VER_MINOR) "." AKVIS_STR(VER_PATCH) "." AKVIS_STR(BUILD_NUM)
+
+#ifdef GGML_BUILD_COMMIT
+#define VERSION_FULL2 VERSION_FULL " commit " GGML_BUILD_COMMIT
+#else
+#define VERSION_FULL2 VERSION_FULL
+#endif
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION VERSION_AS_NUMBERLIST
+ PRODUCTVERSION VERSION_AS_NUMBERLIST
+ FILEFLAGSMASK 0x17L
+ FILEFLAGS 0x0L
+ FILEOS 0x4L
+//#if defined(AKVIS_THUNK)
+ FILETYPE 0x2L
+//#else
+// FILETYPE 0x1L
+//#endif
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000004b0"
+        BEGIN
+            VALUE "FileVersion", VERSION_FULL
+            VALUE "LegalCopyright", "Copyright (c) ggml.ai"
+            VALUE "ProductName", "GGML"
+            VALUE "ProductVersion", VERSION_FULL2
+            VALUE "FileDescription", "Tensor library for machine learning"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0, 1200
+    END
+END
