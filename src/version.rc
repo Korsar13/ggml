@@ -1,13 +1,19 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
+#ifndef GGML_VERSION_MAJOR
+#define GGML_VERSION_MAJOR 0
+#endif
+#ifndef GGML_VERSION_MINOR
+#define GGML_VERSION_MINOR 10
+#endif
+#ifndef GGML_VERSION_PATCH
+#define GGML_VERSION_PATCH 0
+#endif
+#define BUILD_NUM 1
+
 #define AKVIS_STR_(x) #x
 #define AKVIS_STR(x) AKVIS_STR_(x)
-
-#define GGML_VERSION_MAJOR 0
-#define GGML_VERSION_MINOR 9
-#define GGML_VERSION_PATCH 9
-#define BUILD_NUM 1
 
 #define VER_MAJOR GGML_VERSION_MAJOR
 #define VER_MINOR GGML_VERSION_MINOR
