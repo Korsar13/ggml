@@ -265,6 +265,13 @@ function(ggml_add_backend_library backend)
             else()
                 message(FATAL_ERROR "version.rc not found")
             endif()
+            target_compile_definitions(${backend} PRIVATE
+                GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
+                GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
+                GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
+                GGML_VERSION="${GGML_VERSION}"
+                GGML_COMMIT="${GGML_BUILD_COMMIT}"
+            )
         endif()
     else()
         add_library(${backend} ${ARGN})

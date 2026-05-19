@@ -347,6 +347,20 @@ set_target_properties(ggml PROPERTIES PUBLIC_HEADER "${GGML_PUBLIC_HEADERS}")
 if(WIN32)
     target_sources(ggml PRIVATE src/version.rc)
     target_sources(ggml-base PRIVATE src/version.rc)
+    target_compile_definitions(ggml PRIVATE
+        GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
+        GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
+        GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
+        GGML_VERSION="${GGML_VERSION}"
+        GGML_COMMIT="${GGML_BUILD_COMMIT}"
+    )
+    target_compile_definitions(ggml-base PRIVATE
+        GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
+        GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
+        GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
+        GGML_VERSION="${GGML_VERSION}"
+        GGML_COMMIT="${GGML_BUILD_COMMIT}"
+    )
 endif()
 install(TARGETS ggml LIBRARY PUBLIC_HEADER)
 install(TARGETS ggml-base LIBRARY)

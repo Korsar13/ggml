@@ -87,10 +87,6 @@ ggml_add_backend_library(ggml-hip
                          ${GGML_SOURCES_ROCM}
                         )
 
-#if (WIN32)
-#    target_sources(ggml-hip PRIVATE version.rc)
-#endif()
-
 # TODO: do not use CUDA definitions for HIP
 if (NOT GGML_BACKEND_DL)
     target_compile_definitions(ggml PUBLIC GGML_USE_CUDA)
