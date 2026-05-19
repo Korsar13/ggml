@@ -3,7 +3,6 @@
 #define MAX_GRIDDIM_Y 65535
 #define MAX_GRIDDIM_Z 65535
 
-
 template <typename T>
 static  __global__ void im2col_kernel(
         const float * x, T * dst,
@@ -21,7 +20,7 @@ static  __global__ void im2col_kernel(
     const int64_t ikw = rem - ikh * KW;
 
     for (int64_t iow = blockIdx.y; iow < OW; iow += MAX_GRIDDIM_Y) {
-        for (int64_t iz = blockIdx.z; iz < N_OH; iz+=MAX_GRIDDIM_Z) {
+        for (int64_t iz = blockIdx.z; iz < N_OH; iz += MAX_GRIDDIM_Z) {
             const int64_t  in = iz / OH;
             const int64_t  ioh = iz - in * OH;
 
@@ -140,7 +139,7 @@ static  __global__ void im2col_3d_kernel(
     const int64_t ikw = i % KW;
 
     for (int64_t iow = blockIdx.y; iow < OW; iow += MAX_GRIDDIM_Y) {
-        for (int64_t iz = blockIdx.z; iz < N_OD_OH; iz+=MAX_GRIDDIM_Z) {
+        for (int64_t iz = blockIdx.z; iz < N_OD_OH; iz += MAX_GRIDDIM_Z) {
             const int64_t in  = iz / OD_OH;
             const int64_t iod = (iz - in*OD_OH) / OH;
             const int64_t ioh = iz % OH;
