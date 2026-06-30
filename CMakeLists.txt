@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.14...3.28) # for add_link_options and implicit 
 
 project("ggml" C CXX ASM)
 
+set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+
 ### GGML Version
 set(GGML_VERSION_MAJOR 0)
 set(GGML_VERSION_MINOR 15)
