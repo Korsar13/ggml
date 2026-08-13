@@ -274,6 +274,22 @@ function(ggml_add_backend_library backend)
         else()
             install(TARGETS ${backend} LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR})
         endif()
+        if (WIN32)
+            if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../version.rc)
+                target_sources(${backend} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../version.rc)
+            elseif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/version.rc)
+                target_sources(${backend} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/version.rc)
+            else()
+                message(FATAL_ERROR "version.rc not found")
+            endif()
+            target_compile_definitions(${backend} PRIVATE
+                GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
+                GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
+                GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
+                GGML_VERSION="${GGML_VERSION}"
+                GGML_COMMIT="${GGML_BUILD_COMMIT}"
+            )
+        endif()
     else()
         add_library(${backend} ${ARGN})
         target_link_libraries(ggml PUBLIC ${backend})

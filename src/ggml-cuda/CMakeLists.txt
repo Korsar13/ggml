@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.18)  # for CMAKE_CUDA_ARCHITECTURES
 
+set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
+
 find_package(CUDAToolkit)
 
 if (CUDAToolkit_FOUND)
@@ -264,6 +266,7 @@ if (CUDAToolkit_FOUND)
     endif()
 
     target_compile_options(ggml-cuda PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:${CUDA_FLAGS}>")
+    set_target_properties(ggml-cuda PROPERTIES INSTALL_RPATH "$ORIGIN:/usr/local/cuda-12/targets/x86_64-linux/lib:")
 else()
     message(FATAL_ERROR "CUDA Toolkit not found")
 endif()
