@@ -393,18 +393,20 @@ function(ggml_add_backend_library backend)
         if (WIN32)
             if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/../version.rc)
                 target_sources(${backend} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../version.rc)
+                set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../version.rc PROPERTIES COMPILE_DEFINITIONS "GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR};GGML_VERSION_MINOR=${GGML_VERSION_MINOR};GGML_VERSION_PATCH=${GGML_VERSION_PATCH};GGML_VERSION=\"${GGML_VERSION}\";GGML_COMMIT=\"${GGML_BUILD_COMMIT}\"")
             elseif (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/version.rc)
                 target_sources(${backend} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/version.rc)
+                set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/version.rc PROPERTIES COMPILE_DEFINITIONS "GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR};GGML_VERSION_MINOR=${GGML_VERSION_MINOR};GGML_VERSION_PATCH=${GGML_VERSION_PATCH};GGML_VERSION=\"${GGML_VERSION}\";GGML_COMMIT=\"${GGML_BUILD_COMMIT}\"")
             else()
                 message(FATAL_ERROR "version.rc not found")
             endif()
-            target_compile_definitions(${backend} PRIVATE
-                GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
-                GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
-                GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
-                GGML_VERSION="${GGML_VERSION}"
-                GGML_COMMIT="${GGML_BUILD_COMMIT}"
-            )
+#            target_compile_definitions(${backend} PRIVATE
+#                GGML_VERSION_MAJOR=${GGML_VERSION_MAJOR}
+#                GGML_VERSION_MINOR=${GGML_VERSION_MINOR}
+#                GGML_VERSION_PATCH=${GGML_VERSION_PATCH}
+#                GGML_VERSION="${GGML_VERSION}"
+#                GGML_COMMIT="${GGML_BUILD_COMMIT}"
+#            )
         endif()
     else()
         add_library(${backend} ${ARGN})
