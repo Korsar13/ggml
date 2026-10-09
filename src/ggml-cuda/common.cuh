@@ -1464,9 +1464,6 @@ struct ggml_backend_cuda_context {
 #ifdef GGML_CUDA_USE_CUBLASLT_FP8
     cublasLtHandle_t cublaslt_handles[GGML_CUDA_MAX_DEVICES] = {nullptr};
 #endif
-#ifdef GGML_CUDA_USE_CUBLASLT_FP8
-    cublasLtHandle_t cublaslt_handles[GGML_CUDA_MAX_DEVICES] = {nullptr};
-#endif
 
     int curr_stream_no = 0;
 
