@@ -475,7 +475,10 @@ static bool ggml_backend_cpu_device_supports_op(ggml_backend_dev_t dev, const st
                        (convrot_group_size == 0 ||
                         (convrot_group_size <= 256 && src0->ne[0] % convrot_group_size == 0));
             }
-            return src1->type == GGML_TYPE_F32 || src1->type == ggml_get_type_traits_cpu(src0->type)->vec_dot_type;
+            // BF16 in src1 is widened into the F32 work buffer
+            return src1->type == GGML_TYPE_F32 ||
+                   src1->type == ggml_get_type_traits_cpu(src0->type)->vec_dot_type ||
+                   (src1->type == GGML_TYPE_BF16 && ggml_get_type_traits_cpu(src0->type)->vec_dot_type == GGML_TYPE_F32);
         case GGML_OP_ROPE_APPLY:
             return src0->type == GGML_TYPE_F32 && src1->type == GGML_TYPE_F32 &&
                    op->type == GGML_TYPE_F32 && ggml_is_contiguous(op);
